@@ -14,7 +14,7 @@ const client = new JiraApi({
 
 async function transitionIssue(issueNumber, transitionId) {
   const response = await client.transitionIssue(issueNumber, { transition: { id: transitionId } });
-  if (isOk(response.status)) {
+  if (isOk(response.status) && process.env.VERSION) {
     await client.updateIssue(issueNumber, { fixVersions: [{ add: { id: process.env.VERSION } }] });
     console.log(`Successfully transitioned ${issueNumber} with transition ${transitionId}. Added fix version ${process.env.VERSION}`);
   }

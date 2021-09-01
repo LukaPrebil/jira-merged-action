@@ -1,4 +1,4 @@
-import { parseIssueNumber } from '../helpers';
+import { isOk, parseIssueNumber } from '../helpers';
 
 const ORIGINAL_ENV = { ...process.env };
 
@@ -37,4 +37,20 @@ describe('Testing parseIssueNumber', () => {
 
     expect(() => parseIssueNumber(issue)).toThrowError(`Can't parse issue ${issue}`);
   });
+});
+
+describe('isOk tests', () => {
+  const cases = [
+    { status: 200, result: true },
+    { status: 204, result: true },
+    { status: 301, result: false },
+    { status: 404, result: false },
+  ];
+
+  test.each(cases)(
+    'If passed $status, isOk returns $result',
+    ({ status, result: expected }) => {
+      expect(isOk(status)).toBe(expected);
+    },
+  );
 });
