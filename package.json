@@ -1,0 +1,27 @@
+{
+  "name": "jira-merged-action",
+  "version": "1.0.0",
+  "description": "Github action to transition a Jira ticket to desired state and add fix version",
+  "main": "index.js",
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LukaPrebil/jira-merged-action.git"
+  },
+  "author": "Luka Prebil Grintal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LukaPrebil/jira-merged-action/issues"
+  },
+  "homepage": "https://github.com/LukaPrebil/jira-merged-action#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2"
+  }
+}
