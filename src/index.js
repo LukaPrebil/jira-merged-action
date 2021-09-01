@@ -1,26 +1,42 @@
-import args from 'args';
+import argsParser from 'args-parser';
 import JiraApi from 'jira-client';
-import { isOk, parseIssueNumber } from './helpers';
+import { parseIssueNumber } from './helpers.js';
 
-args
-  .option('issue', 'Issue to transition', null, parseIssueNumber)
-  .option('transition', 'Which transition to execute', null, parseInt);
+/**
+ * @type {{
+ *  hostname: string
+ *  token: string
+ *  project: string | null
+ *  issue: string | number
+ *  transition: number
+ * }}
+ */
+const args = argsParser(process.argv);
 
 const client = new JiraApi({
   protocol: 'https',
-  host: process.env.HOSTNAME,
-  bearer: process.env.TOKEN,
+  host: args.hostname,
+  bearer: args.token,
 });
 
-async function transitionIssue(issueNumber, transitionId) {
-  const response = await client.transitionIssue(issueNumber, { transition: { id: transitionId } });
-  if (isOk(response.status) && process.env.VERSION) {
-    await client.updateIssue(issueNumber, { fixVersions: [{ add: { id: process.env.VERSION } }] });
-    console.log(`Successfully transitioned ${issueNumber} with transition ${transitionId}. Added fix version ${process.env.VERSION}`);
+async function transitionIssue(issueNumber, transitionId, version) {
+  await client.transitionIssue(issueNumber, { transition: { id: transitionId } });
+  console.log(`Successfully transitioned ${issueNumber} with transition ${transitionId}.`);
+  if (version) {
+    await client.updateIssue(
+      issueNumber,
+      {
+        update: {
+          fixVersions: [{ add: { name: version } }],
+        },
+      },
+    );
+    console.log(`Added fix version ${version}`);
   }
-  throw new Error(JSON.stringify(response));
 }
 
-const { issue, transition } = args.parse(process.argv);
-
-await transitionIssue(issue, transition);
+await transitionIssue(
+  parseIssueNumber(args.issue, args.project),
+  args.transition,
+  args.version,
+);

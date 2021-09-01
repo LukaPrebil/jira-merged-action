@@ -1,12 +1,13 @@
 /**
  * @param {string | number} issueNumber either PROJECT-1234 or 1234
+ * @param {string?} project
  */
-export function parseIssueNumber(issueNumber) {
+export function parseIssueNumber(issueNumber, project) {
   if (typeof issueNumber === 'string' && /^[A-Z]+-\d+$/.test(issueNumber)) {
     return issueNumber;
   }
   if (typeof issueNumber === 'number' || /^\d+$/.test(issueNumber)) {
-    return `${process.env.PROJECT}-${issueNumber}`;
+    return `${project.toLocaleUpperCase()}-${issueNumber}`;
   }
 
   throw new Error(`Can't parse issue ${issueNumber}`);

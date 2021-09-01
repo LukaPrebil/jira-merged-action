@@ -13,6 +13,7 @@
     },
     "rules": {
         "no-console": "off",
-        "radix": ["error", "as-needed"]
+        "radix": ["error", "as-needed"],
+        "import/extensions": "off"
     }
 }
