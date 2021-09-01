@@ -2,12 +2,30 @@
   "name": "jira-merged-action",
   "version": "1.0.0",
   "description": "Github action to transition a Jira ticket to desired state and add fix version",
-  "main": "index.js",
+  "main": "src/index.js",
+  "type": "module",
   "engines": {
     "node": ">=14"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest src/test/*.spec.js",
+    "lint": "eslint ./**/*.js --max-warnings 0"
+  },
+  "dependencies": {
+    "args": "^5.0.1",
+    "jira-client": "^6.22.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/eslint-parser": "^7.15.0",
+    "@babel/plugin-syntax-top-level-await": "^7.14.5",
+    "@types/jest": "^27.0.1",
+    "@jest/globals": "^27.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "jest": "^27.1.0"
   },
   "repository": {
     "type": "git",
@@ -18,10 +36,5 @@
   "bugs": {
     "url": "https://github.com/LukaPrebil/jira-merged-action/issues"
   },
-  "homepage": "https://github.com/LukaPrebil/jira-merged-action#readme",
-  "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.24.2"
-  }
+  "homepage": "https://github.com/LukaPrebil/jira-merged-action#readme"
 }
