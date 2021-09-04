@@ -15,7 +15,7 @@ on:
 env:
   REGISTRY: ghcr.io
   GH_REPO: ${{ github.repository }}
-  IMAGE_VERSION: "1.0.0"
+  IMAGE_VERSION: "1.0.1"
 
 jobs:
   build-deploy:
@@ -43,4 +43,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ env.IMAGE_VERSION }}"
+        tags:
+          - "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ env.IMAGE_VERSION }}"
+          - "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+          - "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main"
