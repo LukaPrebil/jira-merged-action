@@ -1,0 +1,25 @@
+name: 'Jira After Merge Action'
+description: 'Transitions an issue and optionally sets fix version'
+author: 'LukaPrebil'
+inputs:
+  jira_hostname:
+    description: 'Hostname for the Jira server'
+    required: true
+  jira_token:
+    descritpion: 'Bearer token to authenticate with.'
+    required: true
+  issue:
+    description: 'Issue key, format [PROJECT-]1234. If project is not provided as part of issue key, it must be provided in project variable.'
+    required: true
+  project:
+    description: 'Project key for the Jira project. Only needed if not supplied as part of issue key.'
+    required: false
+  transition:
+    description: 'ID of the transition to execute'
+    required: true
+  version:
+    description: 'Jira version name to set as issue fix version'
+    required: false
+runs:
+  using: 'docker'
+  image: 'docker://ghcr.io/lukaprebil/jira-merged-action'
