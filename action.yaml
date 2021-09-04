@@ -1,6 +1,9 @@
 name: 'Jira After Merge Action'
 description: 'Transitions an issue and optionally sets fix version'
 author: 'LukaPrebil'
+branding:
+  icon: 'git-merge'
+  color: 'blue'
 inputs:
   jira_hostname:
     description: 'Hostname for the Jira server'
