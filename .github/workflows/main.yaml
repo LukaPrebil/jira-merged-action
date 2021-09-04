@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '.github/**'
+      - 'src/**'
+      - 'Dockerfile'
+      - 'entrypoint.sh'
+      - 'package.json'
+      - 'package-lock.json'
 
 env:
   REGISTRY: ghcr.io
